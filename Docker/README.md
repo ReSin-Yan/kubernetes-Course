@@ -50,3 +50,11 @@ sudo docker-compose --version
 ## 相關指令操作   
 
 ### 環境硬體配置(建議需求)  
+
+ | 指令 | 說明  | 範例 |
+|-------|-------|-------|
+| run | 	新建或啟動 |  docker run -d centos |
+| start [Contain ID]	 | 啟動 |  docker start a469b9226fc8 |
+
+
+
