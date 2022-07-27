@@ -46,3 +46,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 ```
 sudo docker-compose --version
 ```
+
+## 相關指令操作   
+
+### 環境硬體配置(建議需求)  
