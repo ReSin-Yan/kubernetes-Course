@@ -23,7 +23,7 @@ pipeline{
       agent {label "buildserver"}
       steps {
         sh """
-          docker rmi acmeui:${BUILD_NUMBER}
+          docker rmi harbor.zeronetanzu.lab/http/[ntustxx]:${BUILD_NUMBER}
         """
       }  
     }
