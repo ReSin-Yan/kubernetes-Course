@@ -9,7 +9,7 @@ pipeline{
         """
       }
     }
-    stage("Build image"){
+    stage("push image"){
       agent{label "master"}
       steps{
         sh """
