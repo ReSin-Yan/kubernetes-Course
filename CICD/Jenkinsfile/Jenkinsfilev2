@@ -1,0 +1,39 @@
+pipeline{
+  agent none 
+  stages{
+    stage("Build image"){
+      agent{label "master"}
+      steps{
+        sh """
+          docker build . -t http:${BUILD_NUMBER}
+        """
+      }
+    }
+    stage("Build image"){
+      agent{label "master"}
+      steps{
+        sh """
+          docker login harbor.zeronetanzu.lab -u admin -p Harbor12345
+          docker tag http:${BUILD_NUMBER} harbor.zeronetanzu.lab/http/[ntustxx]:${BUILD_NUMBER}
+          docker push harbor.zeronetanzu.lab/http/[ntustxx]:${BUILD_NUMBER}
+        """
+      }
+    }
+    stage('Delete exist image') {
+      agent {label "buildserver"}
+      steps {
+        sh """
+          docker rmi acmeui:${BUILD_NUMBER}
+        """
+      }  
+    }
+
+    
+    
+    
+    
+    
+    
+  }
+}
+
