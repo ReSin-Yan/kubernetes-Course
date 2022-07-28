@@ -1,1 +1,15 @@
+pipeline{
+  agent none 
+  stages{
+    stage("Build image"){
+      agent{label "master"}
+      steps{
+        sh """
+          pwd
+        """
+      }
+    }
+  }
+}
+
 
