@@ -27,6 +27,21 @@ pipeline{
         """
       }  
     }
- 
+    stage('run web service') {
+      agent {label "worker"}
+      steps {
+        script {
+          try {
+            sh """
+            docker rm -f http
+            """
+        } finally {
+            sh """
+            docker run -d --name http -p 8888:80 harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
+            """
+          }
+        }  
+      }
+    }
   }
 }
