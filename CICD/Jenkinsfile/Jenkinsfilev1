@@ -2,7 +2,7 @@ pipeline{
   agent none 
   stages{
     stage("Build image"){
-      agent{label "master"}
+      agent{label "worker"}
       steps{
         sh """
           pwd
