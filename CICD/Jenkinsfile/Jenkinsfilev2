@@ -14,8 +14,8 @@ pipeline{
       steps{
         sh """
           docker login harbor.zeronetanzu.lab -u admin -p Harbor12345
-          docker tag http:${BUILD_NUMBER} harbor.zeronetanzu.lab/cicd/http:${BUILD_NUMBER}
-          docker push harbor.zeronetanzu.lab/cicd/http:${BUILD_NUMBER}
+          docker tag http:${BUILD_NUMBER} harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
+          docker push harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
         """
       }
     }
@@ -23,7 +23,7 @@ pipeline{
       agent {label "worker"}
       steps {
         sh """
-          docker rmi harbor.zeronetanzu.lab/cicd/http:${BUILD_NUMBER}
+          docker rmi harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
         """
       }  
     }
