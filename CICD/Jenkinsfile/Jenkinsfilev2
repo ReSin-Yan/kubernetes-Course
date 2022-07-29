@@ -2,38 +2,31 @@ pipeline{
   agent none 
   stages{
     stage("Build image"){
-      agent{label "master"}
+      agent{label "worker"}
       steps{
         sh """
-          docker build . -t http:${BUILD_NUMBER}
+          docker build build/ -t http:${BUILD_NUMBER}
         """
       }
     }
     stage("push image"){
-      agent{label "master"}
+      agent{label "worker"}
       steps{
         sh """
           docker login harbor.zeronetanzu.lab -u admin -p Harbor12345
-          docker tag http:${BUILD_NUMBER} harbor.zeronetanzu.lab/http/[ntustxx]:${BUILD_NUMBER}
-          docker push harbor.zeronetanzu.lab/http/[ntustxx]:${BUILD_NUMBER}
+          docker tag http:${BUILD_NUMBER} harbor.zeronetanzu.lab/cicd/http:${BUILD_NUMBER}
+          docker push harbor.zeronetanzu.lab/cicd/http:${BUILD_NUMBER}
         """
       }
     }
     stage('Delete exist image') {
-      agent {label "buildserver"}
+      agent {label "worker"}
       steps {
         sh """
-          docker rmi harbor.zeronetanzu.lab/http/[ntustxx]:${BUILD_NUMBER}
+          docker rmi harbor.zeronetanzu.lab/cicd/http:${BUILD_NUMBER}
         """
       }  
     }
-
-    
-    
-    
-    
-    
-    
+ 
   }
 }
-
