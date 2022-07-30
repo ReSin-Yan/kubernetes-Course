@@ -162,7 +162,7 @@ ssh pipline steps
  | 項目 | 輸入資訊 | 
 |-------|-------|
 | Name | 好分辨的即可 |
-| Remote root directory | /home/ubuntu/jenkins  (如果其他節點的安裝步驟有按照其它的安裝步驟) |
+| Remote root directory | /home/ubuntu/jenkins/  (如果其他節點的安裝步驟有按照其它的安裝步驟) |
 | labels | 目前此node的角色，會影響之後在寫pipline的設定 |
 | launch method | Launch agents via ssh |
 | Host | 連線機器的IP |
