@@ -194,7 +194,10 @@ Credentials 點選Add
 #### Gitlab 建立新專案  
 進到Gitlab頁面  
 點選`New Project` >  `Create blank project`  
+Project URL 選擇 root  
 依序輸入`Project Name`並把Visibility Level調整成`Public`  > 點選`Create Project`  
+[build folder](https://github.com/ReSin-Yan/NTUSTCourse/tree/main/CICD/build "link")  
+並上傳此build資料夾內的全部資料(需要新建一個資料夾)  
 
 #### Jenkins 建立新專案並且與Gitlab進行連結  
 進到Jenkins頁面  .
@@ -206,6 +209,7 @@ Build when a change is pushed to GitLab. GitLab webhook URL:xxxxxxxxxxxxx
 注意要將URL複製下來接下來會將此貼到Gitlab的設定內  
 右下角 `Advanced` > 拉到最下面有一個 `Secret token` 點選Generate  
 ![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting2.PNG)   
+紀錄完以上兩筆資訊之後，點選儲存建立  
 
 將以上兩個資訊記錄下來  
 在Gitlab頁面，進入到project內後  
