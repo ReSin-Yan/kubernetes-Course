@@ -188,3 +188,47 @@ Credentials 點選Add
 
 ![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/addnode3.PNG)   
 
+
+### Gitlab建立專案並且跟Jenkins設定連結    
+
+#### Gitlab 建立新專案  
+進到Gitlab頁面  
+點選`New Project` >  `Create blank project`  
+依序輸入`Project Name`並把Visibility Level調整成`Public`  > 點選`Create Project`  
+
+#### Jenkins 建立新專案並且與Gitlab進行連結  
+進到Jenkins頁面  .
+點選`New Item` > `點選pipline並且輸入名稱` (名稱建議有意義)  `OK`  
+
+建立之後再 Build Triggers打勾 
+Build when a change is pushed to GitLab. GitLab webhook URL:xxxxxxxxxxxxx  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting1.PNG)   
+注意要將URL複製下來接下來會將此貼到Gitlab的設定內  
+右下角 `Advanced` > 拉到最下面有一個 `Secret token` 點選Generate  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting2.PNG)   
+
+將以上兩個資訊記錄下來  
+在Gitlab頁面，進入到project內後  
+點選左邊`Setting` > `Webhooks` 依序輸入`URL` 和 `Secret token`  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting3.PNG)   
+`Add webhook`  
+可以點選測試來測試看看連結是否成功  
+
+回到jenkins 專案的Dashboard，如果可以看到左下角自動跑出build history及代表成功連結  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting5.PNG)   
+
+
+#### 決定Jenkins pipline是寫在Jenkins or Gitlab  
+這段是可以自己決定的  
+本篇使用的方式為將檔案一起放入Gitlab內  
+所以需要額外設定兩個步驟  
+1.將pipline檔案(Jenkinsfiles)放入Gitlab  
+2.在jenkins內部設定預設執行的腳本從Gitlab內搜尋  
+
+#### 新增Kubernetes工作節點  
+這邊使用的方式是直接把kuberenets的控制節點加進來  
+所有的節點設置方式都如同buildserver  
+安裝步驟也相同  
+參考連結  
+Jenkins add node  
+buildserver設定  
