@@ -112,9 +112,9 @@ sudo docker rm -f filebrowser
 ```
 cd
 mkdir dockerfile
+cd dockerfile
 
-
-sudo tee Dockerfile <<EOF
+tee Dockerfile <<EOF
 FROM centos:7
 MAINTAINER NewstarCorporation
 RUN yum -y install httpd
