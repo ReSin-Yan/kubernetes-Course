@@ -237,8 +237,6 @@ Branch specifier > `*/*`
 Script Path > `Jenkinsfile`  
 ![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting6.PNG)   
 
-接著可以在Gitlab測試是否連結成功  
-隨便更改一下jenkinsfiles內部的指令
 
 #### 將pipline檔案放入Gitlab  
 在gitlab project內新增檔案  
@@ -263,5 +261,5 @@ pipeline {
 }
 ```
 
-點選最下面的commit changes，注意這邊還未設定與jenkins連結  
-所以執行jenkins雖然會有反應，但是本身還未寫上任何的腳本文件，只會空跑  
+接著可以在Gitlab測試是否連結成功  
+隨便更改一下jenkinsfiles內部的指令  
