@@ -158,13 +158,13 @@ ssh pipline steps
 
 
 
- | 項目 | 輸入資訊 | 
-|-------|-------|
-| Name | 好分辨的即可 |
-| Remote root directory | /home/ubuntu/jenkins/  (如果其他節點的安裝步驟有按照其它的安裝步驟) |
-| labels | 目前此node的角色，會影響之後在寫pipline的設定 |
-| launch method | Launch agents via ssh |
-| Host | 連線機器的IP |
+ | 項目 | 輸入資訊 | 說明 | 
+|-------|-------|-------| 
+| Name | 好分辨的即可 | 好分辨的即可 |
+| Remote root directory | /home/ubuntu/jenkins/ | 在此範例請使用此路徑 |
+| labels | worker | 目前此node的角色，會影響之後在寫pipline的設定 |
+| launch method | Launch agents via ssh | 啟動此節點的方式 |
+| Host | your VM IP | 連線機器的IP |
 
 ![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/addnode2.PNG)   
 
