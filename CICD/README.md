@@ -139,7 +139,6 @@ Jenkins基本安裝完成之後
 依序搜尋這些套件並勾起  
 之後點選Install without restart  
 Gitlab  
-Gitlab Webhook  
 Gitlab authentication  
 generic webhook trigger  
 
