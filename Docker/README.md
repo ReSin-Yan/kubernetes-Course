@@ -144,3 +144,46 @@ EOF
 ```
 sudo docker build -t http:v1 . --no-cache
 ```
+
+```
+sudo docker run -p 8080:80 -d --name http  http:v1 
+```
+
+打開網頁<http://ThisVMIP:8080/>    
+
+```
+sudo docker rm -f  http  
+```
+
+### Dockercompose file  
+
+
+建立Dockerfile  
+```
+cd
+mkdir dockerfile
+cd dockerfile
+
+tee docker-compose.yaml <<EOF
+version: "3.8"
+
+services:
+  http1:
+    image: nginxdemos/nginx-hello
+    ports:
+      - 80:8080
+  http2:
+    image: nginxdemos/nginx-hello
+    ports:
+      - 8080:8080
+EOF
+```
+
+利用docker-compose file來建立多個容器服務  
+```
+sudo docker compose  -f docker-compose.yaml up
+```
+
+```
+sudo docker compose  down 
+```
