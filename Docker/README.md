@@ -126,7 +126,7 @@ EOF
 
 建立index.html  
 ```
-sudo tee index.html <<EOF
+tee index.html <<EOF
 <!DOCTYPE html>
 <html>
     <head>
