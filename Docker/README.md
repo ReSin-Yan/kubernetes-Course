@@ -131,11 +131,16 @@ tee index.html <<EOF
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Hello world!!!</title>
+        <title>I am title!!!!</title>
     </head>
     <body bgcolor="blue">
       <h1>Hello workd</h1>
     </body>
 </html>
 EOF
+```
+
+利用dockerfiles建立images  
+```
+sudo docker build -t http:v1 . --no-cache
 ```
