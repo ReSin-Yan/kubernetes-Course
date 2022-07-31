@@ -66,6 +66,7 @@ Gitlab新版本預設把local的功能關閉
 放置一些相關文件及記錄檔的位置  
 ```
 mkdir jenkins_home
+mkdir jenkins
 ```
 
 接著需要將此資料夾進行設定  
@@ -74,6 +75,7 @@ mkdir jenkins_home
 ```
 sudo chmod +777 jenkins_home
 sudo chown -R 1000:1000 jenkins_home/
+sudo chmod +777 jenkins/
 ```
 
 接著執行部屬指令  
