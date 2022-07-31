@@ -158,11 +158,11 @@ sudo docker rm -f  http
 ### Dockercompose file  
 
 
-建立Dockerfile  
+建立Dockercompose  
 ```
 cd
-mkdir dockerfile
-cd dockerfile
+mkdir dockercompose
+cd dockercompose
 
 tee docker-compose.yaml <<EOF
 version: "3.8"
