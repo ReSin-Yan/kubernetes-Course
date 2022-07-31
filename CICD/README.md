@@ -79,7 +79,6 @@ sudo chown -R 1000:1000 jenkins_home/
 接著執行部屬指令  
 注意這邊是需要jdk8版本的jenkins，因為此環境預計與gitlab連結，所以會需要jdk8版本  
 如果連結其它環境則不需要  
-<font color=#800000>酒紅色</font>
 注意路徑/home/ubuntu/jenkins_home，請改成自己環境的路徑  
   
 ```
