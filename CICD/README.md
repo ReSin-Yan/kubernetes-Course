@@ -217,6 +217,7 @@ Build when a change is pushed to GitLab. GitLab webhook URL:xxxxxxxxxxxxx
 回到jenkins 專案的Dashboard，如果可以看到左下角自動跑出build history及代表成功連結  
 ![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting5.PNG)   
 
+### 利用jenkinsfiles來達成CICD流程  
 
 #### 決定Jenkins pipline是寫在Jenkins or Gitlab  
 這段是可以自己決定的  
@@ -225,10 +226,42 @@ Build when a change is pushed to GitLab. GitLab webhook URL:xxxxxxxxxxxxx
 1.將pipline檔案(Jenkinsfiles)放入Gitlab  
 2.在jenkins內部設定預設執行的腳本從Gitlab內搜尋  
 
-#### 新增Kubernetes工作節點  
-這邊使用的方式是直接把kuberenets的控制節點加進來  
-所有的節點設置方式都如同buildserver  
-安裝步驟也相同  
-參考連結  
-Jenkins add node  
-buildserver設定  
+#### 將pipline檔案放入Gitlab  
+在gitlab project內新增檔案  
+點選檔案上的`+`  > `New file` > 名子輸入 `Jenkinsfile` (記住此名稱，需要跟在Jenkins那邊設定相同)  
+
+
+接著貼上  
+
+```
+pipeline {
+  agent none 
+  stages {
+    stage("Build image"){
+      agent {label "buildserver"}
+      steps{
+        sh """
+          ls
+        """
+      }
+    }
+  }
+}
+```
+
+點選最下面的commit changes，注意這邊還未設定與jenkins連結  
+所以執行jenkins雖然會有反應，但是本身還未寫上任何的腳本文件，只會空跑  
+
+#### 在jenkins內部設定預設執行的腳本從Gitlab內搜尋  
+回到Jenkins，點選 `Configure` > `pipeline`  
+分別設定  
+Definition > `pipeline script form SCM`  
+SCM > `Git`  
+Repository > `你的gitlab project URL`，注意要放最乾淨的路徑  
+Branch specifier > `*/*`  
+Script Path > `Jenkinsfile`  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting6.PNG)   
+
+接著可以在Gitlab測試是否連結成功  
+隨便更改一下jenkinsfiles內部的指令
+
