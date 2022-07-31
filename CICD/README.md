@@ -269,7 +269,83 @@ pipeline {
 
 #### 利用Jenkinsfile自動建立地端的容器服務  
 
-[Jenkinsfilesv2]([https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/tree/main/Harbor](https://github.com/ReSin-Yan/NTUSTCourse/blob/main/CICD/Jenkinsfile/Jenkinsfilev2) "link")  
+[Jenkinsfilev2](https://github.com/ReSin-Yan/NTUSTCourse/blob/main/CICD/Jenkinsfile/Jenkinsfilev2 "link")  
+
+
+也可以直接貼入以下內容  
+需要修改[ntustxx] 成您的帳號  
+輸入對應的vc帳號密碼，以及TKC名稱
+```
+pipeline{
+  agent none 
+  stages{
+    stage("Build image"){
+      agent{label "worker"}
+      steps{
+        sh """
+          docker build build/ -t http:${BUILD_NUMBER}
+        """
+      }
+    }
+    stage("push image"){
+      agent{label "worker"}
+      steps{
+        sh """
+          docker login harbor.zeronetanzu.lab -u admin -p Harbor12345
+          docker tag http:${BUILD_NUMBER} harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
+          docker push harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
+        """
+      }
+    }
+    stage('Delete exist image') {
+      agent {label "worker"}
+      steps {
+        sh """
+          docker rmi harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
+        """
+      }  
+    }
+    stage('Tanzu developer login') {
+            agent {label "worker"}
+            steps {
+                sh """
+                    export KUBECTL_VSPHERE_PASSWORD=xxxx
+                    kubectl vsphere login --insecure-skip-tls-verify --server 172.18.17.22 --vsphere-username xx@vsphere.local --tanzu-kubernetes-cluster-name xxx-tkc
+                    kubectl config use-context xxx-tkc
+                """
+            }
+    }
+    stage("deployhttp"){
+            agent {label "worker"}
+            steps {
+                sh """
+                    kubectl apply -f webservice.yaml
+                    export NAME=${BUILD_NUMBER}
+                    envsubst < http.yaml > check.yaml
+                    cat check.yaml
+                    kubectl delete -f check.yaml
+                    kubectl apply -f check.yaml
+
+                """
+            }
+    }
+    stage("show Development service IP"){
+            agent {label "worker"}
+            steps {
+                sh """
+                    kubectl get svc | grep http
+                """
+            }
+    }
+  }
+}
+
+```
+
+
+#### 利用Jenkinsfile自動建立Kubernetes的容器服務  
+
+[Jenkinsfilev3](https://github.com/ReSin-Yan/NTUSTCourse/blob/main/CICD/Jenkinsfile/Jenkinsfilev3 "link")  
 
 
 也可以直接貼入以下內容  
