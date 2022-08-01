@@ -31,9 +31,9 @@ pipeline{
             agent {label "worker"}
             steps {
                 sh """
-                    export KUBECTL_VSPHERE_PASSWORD=xxxx
-                    kubectl vsphere login --insecure-skip-tls-verify --server 172.18.17.22 --vsphere-username xx@vsphere.local --tanzu-kubernetes-cluster-name xxx-tkc
-                    kubectl config use-context xxx-tkc
+                    export KUBECTL_VSPHERE_PASSWORD=1qaz@WSX
+                    kubectl vsphere login --insecure-skip-tls-verify --server 172.18.17.22 --vsphere-username ntust@vsphere.local --tanzu-kubernetes-cluster-name ntust-tkcxx
+                    kubectl config use-context ntust-tkcxx
                 """
             }
     }
@@ -45,6 +45,7 @@ pipeline{
                     export NAME=${BUILD_NUMBER}
                     envsubst < http.yaml > check.yaml
                     cat check.yaml
+                    kubectl apply -f check.yaml
                     kubectl delete -f check.yaml
                     kubectl apply -f check.yaml
 
