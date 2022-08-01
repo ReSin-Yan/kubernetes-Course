@@ -49,3 +49,5 @@ controller-manager 的監視與嘗試更新也都需要透過訪問 kube-apiserv
 整個 Kubernetes 的 Pods 調度員，scheduler 會監視新建立但還沒有被指定要跑在哪個 Node 上的 Pod，並根據每個 Node 上面資源規定、硬體限制等條件去協調出一個最適合放置的 Node 讓該 Pod 跑  
 
 ### Cluster  
+
+Kubernetes 中多個 Node 與 Master 的集合。基本上可以想成在同一個環境裡所有 Node 集合在一起的單位。  
