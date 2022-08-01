@@ -93,6 +93,7 @@ mkdir test
 sudo docker run -d --name filebrowser  -v /home/ubuntu/test:/data -p 8080:8080 hurlenko/filebrowser
 ```
 打開網頁<http://ThisVMIP:8080/>    
+預設帳號密碼:admin/admin  
 隨意上傳檔案
 
 ```
