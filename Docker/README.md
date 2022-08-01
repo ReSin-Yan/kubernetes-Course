@@ -1,7 +1,5 @@
 # Docker  
   
-[上課簡報下載](https://goharbor.io/docs/2.3.0/ "link")  
-
 
 ## 安裝步驟  
 
