@@ -337,7 +337,8 @@ pipeline{
 
 也可以直接貼入以下內容  
 需要修改[ntustxx] 成您的帳號  
-輸入對應的vc帳號密碼，以及TKC名稱
+輸入對應的vc帳號密碼，以及TKC名稱  
+新增http.yaml 跟 webservice.yaml  
 ```
 pipeline{
   agent none 
