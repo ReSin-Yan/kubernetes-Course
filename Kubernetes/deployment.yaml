@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-ui
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-ui
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: nginx-ui
+    spec:
+      containers:
+      - name: nginx-ui
+        image: nginxdemos/hello
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
