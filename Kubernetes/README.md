@@ -51,3 +51,21 @@ controller-manager 的監視與嘗試更新也都需要透過訪問 kube-apiserv
 ### Cluster  
 
 Kubernetes 中多個 Node 與 Master 的集合。基本上可以想成在同一個環境裡所有 Node 集合在一起的單位。  
+
+
+### 常用指令列表  
+
+ | 指令 | 說明  | 範例 |
+|-------|-------|-------|
+| run | 	新建或啟動 |  docker run -d centos |
+| start [Contain ID]	 | 啟動 |  docker start xx |
+| stop [Contain ID]		 | 停止 |  docker stop xx |
+| rm [Contain ID]	 | 刪除 |  docker rm xx |
+| rmi [Images ID]	 | 刪除映像檔 |  docker rmi xx |
+| ps -a	 | 啟動 |  docker start a469b9226fc8 |
+| logs [Contain ID]	 | 查看容器內的資訊 |  		docker logs -f a4 |
+| attach [Contain ID]		 | 進入容器 |  	docker attach  a4  |
+| inspect	 | 查看 |  docker inspect a4 |
+| images	 | 啟動 |  docker start a469b9226fc8 |
+| start [Contain ID]	 | 啟動 |  docker start a469b9226fc8 |
+| start [Contain ID]	 | 啟動 |  docker start a469b9226fc8 |
