@@ -91,3 +91,7 @@ cd NTUSTCourse/Kubernetes
 kubectl apply -f pod.yaml
 ```
 
+
+```
+kubectl delete -f pod.yaml
+```
