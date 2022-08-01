@@ -182,6 +182,8 @@ EOF
 ```
 sudo docker compose  -f docker-compose.yaml up
 ```
+打開網頁<http://ThisVMIP:8080/>    
+打開網頁<http://ThisVMIP/>    
 
 ```
 sudo docker compose  down 
