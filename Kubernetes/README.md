@@ -139,6 +139,22 @@ kubectl port-forward service/nginx-ui 8080:80
 kubectl delete -f clusterIP.yaml  
 ```
 
+### 部屬第一個service(Nodeport)並且連結deployment   
+
+```
+kubectl apply -f nodeport.yaml 
+```
+
+確認服務  
+```
+kubectl get pod,svc,node
+```
+
+
+```
+kubectl delete -f nodeport.yaml  
+```
+
 ### 部屬第一個service(loadbalance)並且連結deployment   
 
 ```
