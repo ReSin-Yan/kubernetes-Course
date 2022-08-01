@@ -125,7 +125,7 @@ kubectl apply -f clusterIP.yaml
 
 確認服務  
 ```
-kubectl get pod
+kubectl get pod,svc
 ```
 
 透過port-forward來讓服務從虛擬網路層導出  
