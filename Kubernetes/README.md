@@ -76,6 +76,7 @@ Kubernetes 中多個 Node 與 Master 的集合。基本上可以想成在同一�
 export KUBECTL_VSPHERE_PASSWORD=1qaz@WSX
 kubectl vsphere login --insecure-skip-tls-verify --server 172.18.17.22 --vsphere-username ntust@vsphere.local --tanzu-kubernetes-cluster-name ntust-tkc[輸入編號]
 kubectl config use-context ntust-tkc[輸入編號]
+kubectl apply -f gcallowroot.yaml  
 ```
 
 將此專案透過git下載  
@@ -85,13 +86,50 @@ git clone https://github.com/ReSin-Yan/NTUSTCourse
 cd NTUSTCourse/Kubernetes
 ```
 
-### 部屬第一個pod service  
+### 部屬第一個pod   
 
 ```
 kubectl apply -f pod.yaml
 ```
-
+確認服務  
+```
+kubectl get pod
+```
+我要怎麼連線?  
 
 ```
 kubectl delete -f pod.yaml
+```
+
+### 部屬第一個deployment   
+
+```
+kubectl apply -f deployment.yaml  
+```
+
+確認服務  
+```
+kubectl get pod
+```
+我要怎麼連線?  
+
+```
+kubectl delete -f deployment.yaml  
+```
+
+### 部屬第一個service並且連結deployment   
+
+```
+kubectl apply -f clusterIP.yaml  
+```
+
+確認服務  
+```
+kubectl get pod
+```
+
+透過port-forward來讓服務從虛擬網路層導出  
+
+```
+kubectl get pod
 ```
