@@ -80,12 +80,14 @@ kubectl config use-context ntust-tkc[輸入編號]
 
 將此專案透過git下載  
 ```
-
+cd 
+git clone https://github.com/ReSin-Yan/NTUSTCourse
+cd NTUSTCourse/Kubernetes
 ```
 
 ### 部屬第一個pod service  
 
 ```
-kubectl apply -f 
+kubectl apply -f pod.yaml
 ```
 
