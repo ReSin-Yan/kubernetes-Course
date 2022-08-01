@@ -137,13 +137,13 @@ Jenkins基本安裝完成之後
 #### 插件安裝  
 
 `Dashboard` >  `Manage Jenkins` > `Manage Plugins` > `Available`
-依序搜尋這些套件並勾起  
+搜尋gitlab  
 之後點選Install without restart  
 Gitlab  
 Gitlab authentication  
 generic webhook trigger  
 
-ssh  
+搜尋ssh  
 Public over ssh  
 ssh agent  
 ssh pipline steps  
