@@ -31,6 +31,7 @@ GitLab就是完全免費的(社群版免費，企業版需要定月)
 建立存放資料的位置資料夾  
 並將此資料夾設定環境變數  
 ```
+cd
 mkdir gitlab
 export GITLAB_HOME=/home/ubuntu/gitlab
 ```
