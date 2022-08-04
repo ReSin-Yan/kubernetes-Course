@@ -147,7 +147,7 @@ kubectl apply -f nodeport.yaml
 
 確認服務  
 ```
-kubectl get pod,svc
+kubectl get node,svc
 kubectl get node -o wide
 ```
 
