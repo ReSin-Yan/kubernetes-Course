@@ -73,15 +73,15 @@ Kubernetes 中多個 Node 與 Master 的集合。基本上可以想成在同一�
 
 登入到Taznu環境  
 ```
-export KUBECTL_VSPHERE_PASSWORD=1qaz@WSX
-kubectl vsphere login --insecure-skip-tls-verify --server 172.18.17.22 --vsphere-username ntust@vsphere.local --tanzu-kubernetes-cluster-name ntust-tkc[輸入編號]
-kubectl config use-context ntust-tkc[輸入編號]
+export KUBECTL_VSPHERE_PASSWORD=xxxx
+kubectl vsphere login --insecure-skip-tls-verify --server 172.18.17.22 --vsphere-username ntust@vsphere.local --tanzu-kubernetes-cluster-name xxx-tkc[輸入編號]
+kubectl config use-context xxxt-tkc[輸入編號]
 ```
 
 將此專案透過git下載  
 ```
 cd 
-git clone https://github.com/ReSin-Yan/NTUSTCourse
+git clone https://github.com/ReSin-Yan/kubernetes-Course
 cd NTUSTCourse/Kubernetes
 kubectl apply -f gcallowroot.yaml  
 ```
