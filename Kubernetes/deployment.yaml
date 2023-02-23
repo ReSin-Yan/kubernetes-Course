@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: nginx-ui
-        image: nginxdemos/hello
+        image: taipower-harbor.zerone.lab/tcbbank/nginxdemos:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
