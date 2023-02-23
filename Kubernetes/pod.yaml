@@ -7,6 +7,6 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx
+    image: taipower-harbor.zerone.lab/tcbbank/nginxdemos:latest
     ports:
     - containerPort: 80
