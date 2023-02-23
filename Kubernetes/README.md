@@ -87,7 +87,7 @@ kubectl get node
 ```
 cd 
 git clone https://github.com/ReSin-Yan/kubernetes-Course
-cd kubernetes-Course
+cd kubernetes-Course/Kubernetes
 kubectl apply -f gcallowroot.yaml  
 ```
 
