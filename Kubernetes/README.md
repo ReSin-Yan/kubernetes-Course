@@ -77,6 +77,11 @@ export KUBECTL_VSPHERE_PASSWORD=xxxx
 kubectl vsphere login --insecure-skip-tls-verify --server 192.168.170.73 --vsphere-username tcbbankxx@vsphere.local --tanzu-kubernetes-cluster-name tcbbank-cluster-xx
 kubectl config use-context tcbbank-cluster-xx
 ```
+確認是否連線  
+```
+kubectl get node
+```
+
 
 將此專案透過git下載  
 ```
