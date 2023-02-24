@@ -16,6 +16,7 @@ kubectl get node
 使用已下指令  
 ```
 cd 
+sudo rm -r kubernetes-Course
 git clone https://github.com/ReSin-Yan/kubernetes-Course
 cd kubernetes-Course/TanzuSample
 ```
