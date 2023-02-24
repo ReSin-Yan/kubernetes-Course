@@ -1,17 +1,27 @@
-apiVersion: run.tanzu.vmware.com/v1alpha1      #TKGS API endpoint
-kind: TanzuKubernetesCluster                   #required parameter
+apiVersion: run.tanzu.vmware.com/v1alpha1      
+kind: TanzuKubernetesCluster                   
 metadata:
-  name: tkgs-cluster-1                         #cluster name, user defined
-  namespace: tgks-cluster-ns                   #vsphere namespace
+  name: tkgs-cluster-5                         
+  namespace: tgks-cluster-ns                   
 spec:
   distribution:
-    version: v1.20                             #Resolves to latest TKR 1.20
+    version: v1.20                            
   topology:
     controlPlane:
-      count: 1                                 #number of control plane nodes
-      class: best-effort-medium                #vmclass for control plane nodes
-      storageClass: vwt-storage-policy         #storageclass for control plane
+      count: 3                                 
+      class: best-effort-medium                 
+      storageClass: vwt-storage-policy
+      volumes:
+        - name: etcd
+          mountPath: /var/lib/etcd
+          capacity:
+            storage: 4Gi       
     workers:
-      count: 1                                 #number of worker nodes
-      class: best-effort-medium                #vmclass for worker nodes
-      storageClass: vwt-storage-policy         #storageclass for worker nodes
+      count: 3                                 
+      class: best-effort-medium                 
+      storageClass: vwt-storage-policy        
+      volumes:
+        - name: containerd
+          mountPath: /var/lib/containerd
+          capacity:
+            storage: 16Gi       
