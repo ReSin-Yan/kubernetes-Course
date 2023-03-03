@@ -30,6 +30,6 @@ spec:
     spec:
       containers:
       - name: nginx-ui
-        image: taipower-harbor.zerone.lab/tcbbank/nginxdemos:latest
+        image: nginxdemos/hello
         ports:
         - containerPort: 80
