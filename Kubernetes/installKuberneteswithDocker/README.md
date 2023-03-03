@@ -81,3 +81,16 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 #### 環境安裝(Worker)  
+
+
+#### 安裝CNI(讓節點處於Ready)  
+
+Flannel    
+```
+kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+```
+
+Calico  
+```
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+```
