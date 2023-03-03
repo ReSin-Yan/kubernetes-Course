@@ -177,3 +177,7 @@ kubectl get pod,svc
 kubectl delete -f loadbalance.yaml  
 ```
 
+開啟netshoot服務到k8s內部網路  
+```
+kubectl run -n default debug-container --rm -i --tty --image docker.io/nicolaka/netshoot -- /bin/bash
+```
