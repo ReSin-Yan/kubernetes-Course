@@ -29,6 +29,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginxdemos/hello
+        image: nvharbor.zeronetap.lab/0303/hello
         ports:
         - containerPort: 80
