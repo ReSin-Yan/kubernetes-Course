@@ -88,7 +88,6 @@ kubectl get node
 cd 
 git clone https://github.com/ReSin-Yan/kubernetes-Course
 cd kubernetes-Course/Kubernetes
-kubectl apply -f gcallowroot.yaml  
 ```
 
 ### 部屬第一個pod   
