@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filebrowser-app
+  labels:
+    app: filebrowser
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: filebrowser
+  template:
+    metadata:
+      labels:
+        app: filebrowser
+    spec:
+      containers:
+      - name: filebrowser
+        image: hurlenko/filebrowser
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        name: http
+        volumeMounts:
+        - mountPath: /data
+          name: data1
+      volumes:
+      - name: data1
+        persistentVolumeClaim:
+          claimName: demo-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: filebrowser
+  labels:
+    app: filebrowser
+spec:
+  ports:
+  - port: 80
+    name: filebrowser
+    targetPort: 8080
+  selector:
+    app: filebrowser
+  type: NodePort
