@@ -1,0 +1,58 @@
+# apiVersion, kind, metadata 3個欄位是必備的
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # deployment name
+  name: nginx-deployment-spec
+  labels:
+    app: nginx
+spec:
+  strategy:
+    # 用來指定當 new pod 要取代 old pod 時要如何進行
+    # RollingUpdate: 會根據 maxUnavailable & maxSurge 的設定，確保有足夠的 pod 可以提供服務
+    # 才會慢慢的將 old pod 換成 new pod (default)
+    # Recreate: 會先移除所有的 old pod 後，才會開始產生 new pod
+    type: RollingUpdate
+    rollingUpdate:
+      # 指定當 update 進行中時，可以失效(無法提供服務)的 pod 佔整體 pod 數量的比例(也可以是整數值)為多少
+      # (default = 25%)
+      maxUnavailable: 25%
+      # 指定當 update 進行中時，pod 可以超過 desired status 定義數量的比例(也可以是整數值)
+      # (default = 25%)
+      maxSurge: 25%
+  # 指定要建立多少 pod 副本(default = 1)
+  # 實際情況少於此數字，則會增加 pod，反之則會殺掉 pod
+  replicas: 3
+  # 指定最長等待多少時間後，佈署依舊無法順利完成時，回報 "failed progressing" 的時間(秒)
+  # (default = 600)
+  progressDeadlineSeconds: 600
+  # 設定若是沒有任何 pod crashing 的情況發生，被認為是可用狀態的最小秒數 (default = 0)
+  minReadySeconds: 0
+  # 設定 revision history 保留的數量
+  # 建議可以根據 Deployment 更新的頻率來決定這個值要設定多少
+  # 設定 0 將會無法進行 rollback
+  # (default = 10)
+  revisionHistoryLimit: 10
+  # 用來指定要用來監控並進行管理的 pod label 設定
+  # 必須要與下面的 pod label(.spec.template.metadata.labels) 相符合
+  # 在 apps/v1 版本中，".spec.selector" 一旦設定後就無法變更了
+  selector:
+    matchLabels:
+      app: nginx
+  # .spec.template 其實就是 pod 的定義
+  # 也是 .spec 中唯一必須要設定的欄位
+  template:
+    # pod metadata
+    metadata:
+      # 設定給 pod 的 label 資訊
+      labels:
+        app: nginx
+    spec:
+      # restart policy  在 Delpoyment 中只能設定為 Always
+      restartPolicy: Always
+      # 可看出這個 pod 只運行了一個 nginx container
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
