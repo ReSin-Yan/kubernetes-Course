@@ -247,7 +247,7 @@ sudo docker push <YourFQDN>.com/demo/ubuntu:latest
 輸入以下指令，創建NFS的資料夾  
 ```
 cd
-mkdir /nfsshare
+mkdir nfsshare
 sudo vim /etc/exports
 ```
 
