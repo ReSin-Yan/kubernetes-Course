@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+# deployment metadata
+metadata:
+  # deployment name
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  # 同時建立 3 個 nginx 的 pod 
+  replicas: 3
+  # replicaset 的效果套用在帶有 app=nginx 的 pod 上
+  # 必須要與下面的 pod label 有相符合
+  selector:
+    matchLabels:
+      app: nginx
+  # .spec.template 其實就是 pod 的定義
+  template:
+    # pod metadata
+    metadata:
+      # 設定給 pod 的 label 資訊
+      labels:
+        app: nginx
+    spec:
+      # 可看出這個 pod 只運行了一個 nginx container
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
