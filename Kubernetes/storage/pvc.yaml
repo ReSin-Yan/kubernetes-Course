@@ -8,7 +8,7 @@ metadata:
 spec:
   storageClassName: ""
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteM
   resources:
     requests:
       storage: 1Gi
