@@ -1,27 +1,31 @@
 apiVersion: apps/v1
-kind: Deployment
-# deployment metadata
+kind: DaemonSet
+# DaemonSet metadata
 metadata:
-  # deployment name
-  name: nginx-deployment
+  # DaemonSet name
+  name: nginx-daemonset
   labels:
     app: nginx
 spec:
-  # 同時建立 3 個 nginx 的 pod 
-  replicas: 3
+  # 數量控制不交由replicas，所以不需要設置 
+  #replicas: 
   # replicaset 的效果套用在帶有 app=nginx 的 pod 上
   # 必須要與下面的 pod label 有相符合
   selector:
     matchLabels:
-      app: nginx
+      app: nginx-ds
   # .spec.template 其實就是 pod 的定義
   template:
     # pod metadata
     metadata:
       # 設定給 pod 的 label 資訊
       labels:
-        app: nginx
+        app: nginx-ds
     spec:
+      #tolerations:
+      #- key: node-role.kubernetes.io/control-plane
+      #  operator: Exists
+      #  effect: NoSchedule
       # 可看出這個 pod 只運行了一個 nginx container
       containers:
       - name: nginx

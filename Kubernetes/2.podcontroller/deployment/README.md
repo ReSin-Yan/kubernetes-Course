@@ -136,6 +136,18 @@ kubectl rollout history deployment/nginx-deployment --revision=2
 kubectl rollout undo deployment/nginx-deployment  
 ```
 
+### Update --record不支援  
+現行版本可以改用annotate   
+在每一行更動pod-template的位置之後輸入  
+```
+kubectl annotate deployments nginx-deployment  kubernetes.io/change-cause="set image to nginx latest"
+```
+
+檢查效果  
+```
+kubectl rollout history deployment nginx-deployment   
+```
+
 ### Scale out/in Deployment  
 
 設定目前的 pod repplica 為 10  
