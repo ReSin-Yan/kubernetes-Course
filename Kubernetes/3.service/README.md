@@ -6,7 +6,7 @@
 
 Kubernetes Pod 是有Lifecycle的，它們可以被創建，也可以被銷毀，然而一旦被銷毀Lifecycle就永遠結束。  
 每個 Pod 都會有自己的 IP 地址，即使這些 IP 不是永遠相同。  
-這會導致一個問題：在 Kubernetes 集群中，如果一組 Pod為其它 Pod提供服務，那麼該如何連接呢？  
+這會導致一個問題：在 Kubernetes 集群中，如果一組Pod(前端)其它 Pod(後端)提供服務，那麼該如何連接呢？  
 
 
 ### 關於Service  
@@ -14,7 +14,7 @@ Kubernetes Pod 是有Lifecycle的，它們可以被創建，也可以被銷毀�
 Kubernetes Service 定義了這樣一種抽象：Pod 的邏輯分組，一種可以訪問它們的策略 —— 通常稱為微服務。  
 這一組 Pod 能夠被 Service 訪問到。  
 
-舉個例子，假設有一個用於圖片處理的運行了三個副本的 pod。  
+舉個例子，假設有一個用於圖片處理，並且運行了三個副本的 pod(後端)。  
 這些副本是可互換的 —— frontend 不需要關心它們調用了哪個 backend 副本。然而組成這一組 backend 程序的 Pod 實際上可能會發生變化，frontend 客戶端不應該也沒必要知道，而且也不需要跟踪這組 backend 的狀態。 Service 定義的抽象能夠解耦這種關聯。
 
 對 Kubernetes 集群中的應用，Kubernetes 提供了簡單的 Endpoints API，只要 Service 中的一組 Pod 發生變更，應用程序就會被更新。對非 Kubernetes 集群中的應用，Kubernetes 提供了基於 VIP 的網橋的方式訪問 Service，再由 Service 重定向到 backend Pod。
