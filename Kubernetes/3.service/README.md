@@ -1,6 +1,6 @@
-
 # 基礎常用套件簡述    
 
+[參考資料 雲原生資料庫(簡中)](https://lib.jimmysong.io/kubernetes-handbook/service-discovery/service/)
 
 ## Services(Service discovery&Route)  
 
@@ -17,33 +17,40 @@ Kubernetes Service 定義了這樣一種抽象：Pod 的邏輯分組，一種可
 舉個例子，假設有一個用於圖片處理，並且運行了三個副本的 pod(後端)。  
 這些副本是可互換的 —— frontend 不需要關心它們調用了哪個 backend 副本。然而組成這一組 backend 程序的 Pod 實際上可能會發生變化，frontend 客戶端不應該也沒必要知道，而且也不需要跟踪這組 backend 的狀態。 Service 定義的抽象能夠解耦這種關聯。
 
-對 Kubernetes 集群中的應用，Kubernetes 提供了簡單的 Endpoints API，只要 Service 中的一組 Pod 發生變更，應用程序就會被更新。對非 Kubernetes 集群中的應用，Kubernetes 提供了基於 VIP 的網橋的方式訪問 Service，再由 Service 重定向到 backend Pod。
+對 Kubernetes 集群中的應用，Kubernetes 提供了簡單的 Endpoints API，只要 Service 中的一組 Pod 發生變更，應用程序就會被更新。對非 Kubernetes 集群中的應用，Kubernetes 提供了基於 VIP 的橋接器(Network Bridge)方式訪問 Service，再由 Service 重定向到 backend Pod。
 
-### StatefulSets    
+### 定義service    
 
-StatefulSet 在 v1.9 版後正式支援。而每一個 pod 都有固定的識別資訊，不會因為 pod reschedule 後有變動。  
+一個 Service 在 Kubernetes 中是一個 REST 對象，和 Pod 類似。  
+像所有的 REST 對像一樣， Service 定義可以基於 POST 方式，請求 apiserver 創建新的實例。  
 
-什麼場景要應用此方案呢？  
-需要穩定且唯一的網路識別  
-需要穩定的 persistent storage （使用PVC時，會有各自獨立的Storage）  
-佈署與擴展時，每個 pod 的產生都是有其順序且逐一慢慢完成的，且是先進後出，意思是部署4個Replicas時，會如1、2、3、4逐一部署，而要刪除時則是從4、3、2、1來逐一刪除  
+例如，假定有一組 Pod，它們對外暴露了 9376 端口，同時還被打上 "app=MyApp" 標籤。  
 
+```
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+```
+上述配置將創建一個名稱為 “my-service” 的 Service 對象，它會將請求到 9376 TCP 端口，且具有標籤 "app=MyApp" 的 Pod 上。  
+這個 Service 將被指派一個 IP 地址（通常稱為 “Cluster IP”），它會被服務的代理使用。  
+該 Service 的 selector 將會持續評估，處理結果將被 POST 到一個名稱為 “my-service” 的 Endpoints 。
 
+```
+kubectl get ep,svc,pod -o wide -A
+```
 
-那如何識別  
-每一個 StatefulSet Pod 都有一個獨一無二的識別資訊，但這件事情在 k8s 中是如何被達成的? 其實是分別由以下三種資訊所組成：  
+需要注意的是， Service 能夠將一個接收端口映射到任意的 targetPort。  
+默認情況下，targetPort 將被設置為與 port 字段相同的值。  
+Kubernetes Service 支持 TCP 和 UDP 協議，默認為 TCP 協議。  
 
-Ordinal Index  
-若一個 statefulset 包含了 n 個 replica，那每一個 pod 都會被分配到一個獨立的索引，從 0 ~ n-1，即使 pod reschedule 也不會變。  
-Stable Network ID  
-那因為有獨立的索引，$(service name).$(namespace).svc.cluster.local也是獨立的。  
-Stable Storage  
-可以透過volumeClaimTemplates + StorageClass 來設定獨立的Storage（勢必要為獨立的）  
-
-那要怎麼設定  
-設定 .spec.updateStrategy.rollingUpdate.partition 為一個整數(int)，當index 大於等於此int的 pod 就會被更新，而小於此int的 pod 就不會被更新。  
-舉例：有四個（foo-0、foo-1、foo-2、foo-3），設定整數值為2時，foo-2、foo-3這兩個會被更新。  
-那可以Rollback嗎？不行。因為沒有創建ReplicaSet或是任何有相關的排序，所以只能delete or scale up/down。  
 
 ### DaemonSet  
 
