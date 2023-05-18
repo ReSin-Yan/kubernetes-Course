@@ -1,0 +1,53 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: webip
+  name: webip
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webip
+  template:
+    metadata:
+      labels:
+        app: webip
+    spec:
+      containers:
+      - image: nginxdemos/hello
+        name: webip
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: webip
+  name: webip
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: webip
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webip-ingress
+spec:
+  rules:
+  - host: webip.demo.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: webip
+            port:
+              number: 80
