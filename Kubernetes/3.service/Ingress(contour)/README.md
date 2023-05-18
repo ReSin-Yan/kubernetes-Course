@@ -25,7 +25,7 @@ Contour是由VMware提出並維護的開源套件
 ## 安裝步驟  
   
 
-### 安裝Contout  
+### 安裝Contour  
 如果本身的Kubernetes具有loadbalance的功能(如Tanzu)  
 loadbalance的功能是由平台開發商提供  
 可以跳過安裝loadbalance的部分  
