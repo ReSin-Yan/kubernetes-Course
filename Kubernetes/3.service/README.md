@@ -52,17 +52,12 @@ kubectl get ep,svc,pod -o wide -A
 Kubernetes Service 支持 TCP 和 UDP 協議，默認為 TCP 協議。  
 
 
-### DaemonSet  
+### Type  
 
-簡單來說就是在每一個Node都會跑一個Pod，所以不管是新增/刪除Node，都會新增/刪除Pod。  
+ | 類型 | 說明 |
+|-------|-------|
+| ClusterIP | 通過集群的內部 IP 暴露服務，選擇該值，服務只能夠在集群內部可以訪問，這也是默認的 ServiceType |
+| NodePort| 通過每個 Node 上的 IP 和Static Port（NodePort）暴露服務。 NodePort 服務會路由到 ClusterIP 服務，這個 ClusterIP 服務會自動創建。通過請求 <NodeIP>:<NodePort>，可以從集群的外部訪問一個 NodePort 服務。 |
+| LoadBalancer	 | 使用Provider的負載均衡器，可以向外部暴露服務。外部的LoadBalancer可以路由到 NodePort 服務和 ClusterIP 服務(通常是ClusterIP)。 |
+| ExternalName  | 通過返回 CNAME 和它的值，可以將服務映射到 externalName 字段的內容（例如， foo.bar.example.com）。沒有任何類型代理被創建，這只有 Kubernetes 1.7 或更高版本的 kube-dns 才支持。 |
 
-主要應用場景  
-Monitoring Exporters  
-Logs Collection Daemon  
-在監控或是取得Log上，會使用DaemonSet，那當然可以使用taints來去排除，再用tolerations解除！端看怎麼使用囉（詳細使用方式可以看筆者的前幾篇）。  
-
-那在PVC上，DaemonSet與Deployment是一樣的，共同使用同一個Storage。  
-
-在更新方面，除了部分原因少於三個Node外，DaemonSet更新方式為一個Pod先關閉，而後才起新的Pod，以此類推。那假如有一個出錯時（通常要出錯就是第一個出錯），會停止而不影響後面原本穩定的版本，故而這時只有一個Pod被關閉。  
-
-DaemonSet也無法Rollback。  
