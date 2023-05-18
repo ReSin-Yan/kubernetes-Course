@@ -1,0 +1,97 @@
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 5m
+    templates:
+    - '/etc/alertmanager/config/*.tmpl'
+    route:
+      group_by: ['job']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      receiver: webhook
+      routes:
+      - match:
+          alertname: Watchdog
+        receiver: 'webhook'
+    receivers:
+    - name: webhook
+      webhook_configs:
+      - url: "http://prometheus-alter-webhook.monitoring.svc:9000"
+        send_resolved: false
+  ingress:
+    enabled: true
+    hosts:
+    - altermanager.resindemo.com
+    pathType: Prefix
+  alertmanagerSpec:
+    image:
+      repository: quay.io/prometheus/alertmanager
+      tag: v0.21.0
+      sha: ""
+    replicas: 1
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: managed-nfs-storage
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
+    affinity: 
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: category
+              operator: In
+              values:
+              - monitoring
+grafana:
+  adminPassword: P@ssw0rd
+  ingress:
+    enabled: true
+    hosts:
+    - grafana.resindemo.com
+    pathType: Prefix
+    #persistence:
+    #type: pvc
+    #enabled: true
+    #storageClassName: managed-nfs-storage
+    #accessModes:
+    #  - ReadWriteOnce
+    #size: 10Gi
+prometheusOperator:
+  affinity: 
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: category
+            operator: In
+            values:
+            - monitoring
+prometheus:
+  ingress:
+    enabled: true
+    hosts:
+    - prometheus.resindemo.com
+    pathType: Prefix
+  prometheusSpec:
+    affinity: 
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: category
+              operator: In
+              values:
+              - monitoring
+    storageSpec: 
+      volumeClaimTemplate:
+        spec:
+          storageClassName: managed-nfs-storage
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
