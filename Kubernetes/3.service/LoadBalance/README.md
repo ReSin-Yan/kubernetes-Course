@@ -32,24 +32,18 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.9/confi
 
 
 設定ippool以及L2連線  
+可以同一介面下的ippool.yaml進行複製修改  
+需要修改iprange
 ```
-cat > ippool.yaml <<-EOF
-apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
-metadata:
-  name: first-pool
-  namespace: metallb-system
-spec:
-  addresses:
-  - x.x.x.x-x.x.x.x
----
-apiVersion: metallb.io/v1beta1
-kind: L2Advertisement
-metadata:
-  name: example
-  namespace: metallb-system
-EOF
-
 kubectl apply -f ippool.yaml
 ```
 
+部屬服務  
+```
+kubectl apply -f loadbalance.yaml  
+```
+
+從指令看拿到哪一個IP
+```
+kubectl get svc    
+```
