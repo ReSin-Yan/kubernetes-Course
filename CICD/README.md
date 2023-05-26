@@ -269,6 +269,45 @@ pipeline {
 接著可以在Gitlab測試是否連結成功  
 隨便更改一下jenkinsfiles內部的指令  
 
+#### 利用Jenkinsfile自動建立地端的容器服務  
+
+[Jenkinsfilev2](https://github.com/ReSin-Yan/NTUSTCourse/blob/main/CICD/Jenkinsfile/Jenkinsfilev2 "link")  
+
+
+也可以直接貼入以下內容  
+需要修改[ntustxx] 成您的帳號  
+```
+pipeline{
+  agent none 
+  stages{
+    stage("Build image"){
+      agent{label "worker"}
+      steps{
+        sh """
+          docker build build/ -t http:${BUILD_NUMBER}
+        """
+      }
+    }
+    stage('run web service') {
+      agent {label "worker"}
+      steps {
+        script {
+          try {
+            sh """
+            docker rm -f http
+            """
+        } finally {
+            sh """
+            docker run -d --name http -p 8888:80 http:${BUILD_NUMBER}
+            """
+          }
+        }  
+      }
+    }
+
+  }
+}
+```
 
 ### 利用jenkinsfiles來達成CICD  
 
