@@ -205,7 +205,7 @@ Project URL 選擇 root
 點選`New Item` > `點選pipline並且輸入名稱` (名稱建議有意義)  `OK`  
 
 建立之後再 Build Triggers打勾 
-Build when a change is pushed to GitLab. GitLab webhook URL:xxxxxxxxxxxxx.git(很重要，會考 Ricky說的)  
+Build when a change is pushed to GitLab. GitLab webhook URL:xxxxxxxxxxxxx  
 ![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting1.PNG)   
 注意要將URL複製下來接下來會將此貼到Gitlab的設定內  
 右下角 `Advanced` > 拉到最下面有一個 `Secret token` 點選Generate  
@@ -237,7 +237,7 @@ Build when a change is pushed to GitLab. GitLab webhook URL:xxxxxxxxxxxxx.git(�
 分別設定  
 Definition > `pipeline script form SCM`  
 SCM > `Git`  
-Repository > `你的gitlab project URL`，注意要放最乾淨的路徑  
+Repository > `你的gitlab project URL`，要加.git(很重要，會考 Ricky說的)  
 Branch specifier > `*/*`  
 Script Path > `Jenkinsfile`  
 ![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting6.PNG)   
