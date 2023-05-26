@@ -145,7 +145,7 @@ Gitlab authentication
 generic webhook trigger  
 
 搜尋ssh  
-Public over ssh  
+Publi over ssh  
 ssh agent  
 ssh pipline steps  
 ![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/plugin.PNG)   
