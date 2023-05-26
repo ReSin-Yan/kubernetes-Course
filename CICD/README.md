@@ -273,9 +273,6 @@ pipeline {
 
 [Jenkinsfilev2](https://github.com/ReSin-Yan/NTUSTCourse/blob/main/CICD/Jenkinsfile/Jenkinsfilev2 "link")  
 
-
-也可以直接貼入以下內容  
-需要修改[ntustxx] 成您的帳號  
 ```
 pipeline{
   agent none 
@@ -284,7 +281,7 @@ pipeline{
       agent{label "worker"}
       steps{
         sh """
-          docker build build/ -t http:${BUILD_NUMBER}
+          docker build . -t http:${BUILD_NUMBER}
         """
       }
     }
