@@ -306,8 +306,9 @@ pipeline{
 }
 ```
 
-### 利用jenkinsfiles來達成CICD  
+### 利用jenkinsfiles來達成地端版本的CICD  
 
+這一段需要PUSH Images to Harbor  
 
 ```
 pipeline{
@@ -325,9 +326,9 @@ pipeline{
       agent{label "worker"}
       steps{
         sh """
-          docker login harbor.zeronetanzu.lab -u admin -p Harbor12345
-          docker tag http:${BUILD_NUMBER} harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
-          docker push harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
+          docker login [yourHarbor] -u admin -p Harbor12345
+          docker tag http:${BUILD_NUMBER} [yourHarbor]/[YourProject]/http:${BUILD_NUMBER}
+          docker push [yourHarbor]/[YourProject]/http:${BUILD_NUMBER}
         """
       }
     }
@@ -335,7 +336,7 @@ pipeline{
       agent {label "worker"}
       steps {
         sh """
-          docker rmi harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
+          docker rmi [yourHarbor]/[YourProject]/http:${BUILD_NUMBER}
         """
       }  
     }
@@ -349,7 +350,7 @@ pipeline{
             """
         } finally {
             sh """
-            docker run -d --name http -p 8888:80 harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
+            docker run -d --name http -p 8888:80 [yourHarbor]/[YourProject]/http:${BUILD_NUMBER}
             """
           }
         }  
@@ -421,11 +422,8 @@ Credentials 點選Add
 
 [Jenkinsfilev3](https://github.com/ReSin-Yan/NTUSTCourse/blob/main/CICD/Jenkinsfile/Jenkinsfilev3 "link")  
 
-
-也可以直接貼入以下內容  
-需要修改[ntustxx] 成您的帳號  
-輸入對應的vc帳號密碼，以及TKC名稱  
 新增http.yaml 跟 webservice.yaml  
+
 ```
 pipeline{
   agent none 
@@ -442,9 +440,9 @@ pipeline{
       agent{label "worker"}
       steps{
         sh """
-          docker login harbor.zeronetanzu.lab -u admin -p Harbor12345
-          docker tag http:${BUILD_NUMBER} harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
-          docker push harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
+          docker login [yourHarbor] -u admin -p Harbor12345
+          docker tag http:${BUILD_NUMBER} [yourHarbor]/[YourProject]/http:${BUILD_NUMBER}
+          docker push [yourHarbor]/[YourProject]/http:${BUILD_NUMBER}
         """
       }
     }
@@ -452,22 +450,12 @@ pipeline{
       agent {label "worker"}
       steps {
         sh """
-          docker rmi harbor.zeronetanzu.lab/[ntustxx]/http:${BUILD_NUMBER}
+          docker rmi [yourHarbor]/[YourProject]/http:${BUILD_NUMBER}
         """
       }  
     }
-    stage('Tanzu developer login') {
-            agent {label "worker"}
-            steps {
-                sh """
-                    export KUBECTL_VSPHERE_PASSWORD=1qaz@WSX
-                    kubectl vsphere login --insecure-skip-tls-verify --server 172.18.17.22 --vsphere-username ntust@vsphere.local --tanzu-kubernetes-cluster-name ntust-tkcxx
-                    kubectl config use-context ntust-tkcxx
-                """
-            }
-    }
     stage("deployhttp"){
-            agent {label "worker"}
+            agent {label "master"}
             steps {
                 sh """
                     kubectl apply -f webservice.yaml
@@ -482,7 +470,7 @@ pipeline{
             }
     }
     stage("show Development service IP"){
-            agent {label "worker"}
+            agent {label "master"}
             steps {
                 sh """
                     kubectl get svc | grep http
