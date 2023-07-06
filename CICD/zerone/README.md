@@ -318,7 +318,7 @@ pipeline{
       agent{label "worker"}
       steps{
         sh """
-          docker build build/ -t http:${BUILD_NUMBER}
+          docker build . -t http:${BUILD_NUMBER}
         """
       }
     }
@@ -432,7 +432,7 @@ pipeline{
       agent{label "worker"}
       steps{
         sh """
-          docker build build/ -t http:${BUILD_NUMBER}
+          docker build . -t http:${BUILD_NUMBER}
         """
       }
     }
