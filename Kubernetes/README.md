@@ -73,9 +73,9 @@ Kubernetes 中多個 Node 與 Master 的集合。基本上可以想成在同一�
 
 登入到Taznu環境  
 ```
-export KUBECTL_VSPHERE_PASSWORD=xxxx
-kubectl vsphere login --insecure-skip-tls-verify --server 192.168.170.73 --vsphere-username tcbbankxx@vsphere.local --tanzu-kubernetes-cluster-name tcbbank-cluster-xx
-kubectl config use-context tcbbank-cluster-xx
+export KUBECTL_VSPHERE_PASSWORD=zeroneP@ssw0rd01
+kubectl vsphere login --insecure-skip-tls-verify --server 172.18.23.203 --vsphere-username administrator@vsphere.local --tanzu-kubernetes-cluster-name  ntust-tkc[xx]
+kubectl config use-context ntust-tkc[xx]
 ```
 確認是否連線  
 ```
