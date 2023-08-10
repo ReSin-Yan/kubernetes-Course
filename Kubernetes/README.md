@@ -76,7 +76,7 @@ Kubernetes 中多個 Node 與 Master 的集合。基本上可以想成在同一�
 export KUBECTL_VSPHERE_PASSWORD=zeroneP@ssw0rd01
 kubectl vsphere login --insecure-skip-tls-verify --server 172.18.23.203 --vsphere-username administrator@vsphere.local --tanzu-kubernetes-cluster-name  ntust-tkc[xx]
 kubectl config use-context ntust-tkc[xx]
-kubectl apply -f gcallowroot.yaml
+
 ```
 確認是否連線  
 ```
@@ -89,6 +89,7 @@ kubectl get node
 cd 
 git clone https://github.com/ReSin-Yan/kubernetes-Course
 cd kubernetes-Course/Kubernetes
+kubectl apply -f gcallowroot.yaml
 ```
 
 ### 部屬第一個pod   
